@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", function (_e) {
 	
 	
 	var gamesImages = [];
-	for(var i=0; i<games.length; i++) {
-		gamesImages.push('data/img/'+games[i].slug+'.jpg');
+	for(var i=0; i<gamesImages.length; i++) {
+		gamesImages.push('data/img/'+gamesImages[i].slug+'.jpg');
 	}
 	var contentToCache = appShellFiles.concat(gamesImages);
 	
