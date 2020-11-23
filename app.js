@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", function (_e) {
 	
 	
 	
+	if('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('./pwa-examples/js13kpwa/sw.js');
+	};
 	
 	var gamesImages = [];
 	for(var i=0; i<gamesImages.length; i++) {
