@@ -6,7 +6,10 @@
  *                                                                      *
  ************************************************************************/
 document.addEventListener("DOMContentLoaded", function (_e) {
-
+	
+	if('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('./sw.js');
+	};
     
     /******************************************************************
             Fonctions à compléter dans la dernière partie du TP 
@@ -22,41 +25,7 @@ document.addEventListener("DOMContentLoaded", function (_e) {
         else {
             alert("Votre appareil ne supporte pas la géolocalisation.");    
         }
-    }
-	
-	
-	
-	if('serviceWorker' in navigator) {
-		navigator.serviceWorker.register('./pwa-examples/js13kpwa/sw.js');
-	};
-	
-	var gamesImages = [];
-	for(var i=0; i<gamesImages.length; i++) {
-		gamesImages.push('data/img/'+gamesImages[i].slug+'.jpg');
-	}
-	var contentToCache = appShellFiles.concat(gamesImages);
-	
-	self.addEventListener('install', (e) => {
-		console.log('[Service Worker] Install');
-		e.waitUntil(caches.open(cacheName).then((cache) => {
-			console.log('[Service Worker] Caching all: app shell and content');
-			return cache.addAll(contentToCache);
-		}));
-	});
-    
-    self.addEventListener('fetch', (e) => {
-		e.respondWith(caches.match(e.request).then((r) => {
-			console.log('[Service Worker] Fetching resource: '+e.request.url);
-			return r || fetch(e.request).then((response) => {
-                return caches.open(cacheName).then((cache) => {
-					console.log('[Service Worker] Caching new resource: '+e.request.url);
-					cache.put(e.request, response.clone());
-					return response;
-					});
-				});
-			})
-		);
-	});
+    }	
 
     /******************************************************************
                             Gestion des événements 
